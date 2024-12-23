@@ -9,8 +9,8 @@ spec:
   - '*'
 
   destinations:
-  - namespace: '*'
-    server: '*'
+  - server: '*'
+    namespace: '*'
 
   clusterResourceWhitelist:
   - group: '*'

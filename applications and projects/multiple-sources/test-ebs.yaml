@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-ebs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-ebs
+  template:
+    metadata:
+      labels:
+        app: test-ebs
+    spec:
+      containers:
+      - name: web
+        image: nginx
+        volumeMounts:
+        - name: ebs-volume
+          mountPath: /data
+      volumes:
+      - name: ebs-volume
+        persistentVolumeClaim:
+          claimName: test-ebs-claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: test-ebs-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ebs-sc
+  resources:
+    requests:
+      storage: 4Gi
+

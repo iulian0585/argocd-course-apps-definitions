@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-metadata: 
+metadata:
   name: guestbook-dev-project
   namespace: argocd
-spec: 
-  destination: 
-    namespace: ns-1
+spec:
+  destination:
+    namespace: test-1
     server: "https://kubernetes.default.svc"
   project: dev-project
-  source: 
+  source:
     path: guestbook
-    repoURL: "https://github.com/mabusaa/argocd-example-apps.git"
+    repoURL: "https://github.com/iulian0585/argocd-example-apps.git"
     targetRevision: master
   syncPolicy:
     syncOptions:

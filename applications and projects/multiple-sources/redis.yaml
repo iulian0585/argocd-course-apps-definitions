@@ -1,8 +1,10 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: ebs-sc
-provisioner: ebs.csi.aws.amazonaws.com
+  name: gp3
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: kubernetes.io/aws-ebs
 volumeBindingMode: WaitForFirstConsumer
 parameters:
   type: gp3
@@ -26,10 +28,10 @@ spec:
         values: |
           master:
             persistence:
-              storageClass: "ebs-sc"
+              storageClass: "gp3"
           replica:
             persistence:
-              storageClass: "ebs-sc"
+              storageClass: "gp3"
     - chart: prometheus-redis-exporter
       repoURL: https://prometheus-community.github.io/helm-charts
       targetRevision: 5.3.2
